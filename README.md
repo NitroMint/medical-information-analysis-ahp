@@ -51,7 +51,7 @@ AHP decomposes a complex decision problem into a hierarchy, derives weights from
 
 | 文件 / File | 说明 / Description |
 | --- | --- |
-| `src/ahp_01_最大特征根.py` | 对给定 4×4 判断矩阵，用和积法求特征向量 $W$ 与最大特征根 $\lambda_{\max}$。<br>Solves a given 4×4 judgment matrix for $W$ and $\lambda_{\max}$. |
+| `src/ahp_01_最大特征根.py` | 对给定 4×4 判断矩阵，用和积法求特征向量 W 与最大特征根 λmax。<br>Solves a given 4×4 judgment matrix for W and λmax. |
 | `src/ahp_02_毕业去向选择.py` | 5 个约束 × 4 个方案的完整 AHP，交互式完成 40 次成对比较并生成报告.<br>Full AHP with 5 criteria × 4 alternatives; 40 interactive comparisons. |
 | `src/ahp_03_项目遴选评价体系.py` | 三层递阶体系（准则层 3 项、指标层 6 项），交互式 6 次比较，支持记录判断依据.<br>Three-level hierarchy (3 criteria, 6 indicators) with 6 comparisons. |
 
@@ -114,9 +114,9 @@ Given the judgment matrix:
 
 $$
 A=\begin{bmatrix}
-1 & 8 & 5 & 3\\
-1/8 & 1 & 1/2 & 1/6\\
-1/5 & 2 & 1 & 1/3\\
+1 & 8 & 5 & 3 \\
+1/8 & 1 & 1/2 & 1/6 \\
+1/5 & 2 & 1 & 1/3 \\
 1/3 & 6 & 3 & 1
 \end{bmatrix}
 $$
@@ -127,10 +127,10 @@ Solving with the sum-product method:
 
 | 项目 / Item | 结果 / Result |
 | --- | --- |
-| 特征向量 $W$ | $(0.5666,\ 0.0560,\ 0.1044,\ 0.2730)^T$ |
-| 最大特征根 $\lambda_{\max}$ | $4.0666$ |
+| 特征向量 W | (0.5666, 0.0560, 0.1044, 0.2730)ᵀ |
+| 最大特征根 λmax | 4.0666 |
 
-（与 `numpy.linalg.eig` 的精确解 $\lambda_{\max}=4.0665$ 相比误差极小。／Very close to the exact solution $\lambda_{\max}=4.0665$ from `numpy.linalg.eig`.)
+（与 `numpy.linalg.eig` 的精确解 λmax = 4.0665 相比误差极小。／Very close to the exact solution λmax = 4.0665 from `numpy.linalg.eig`.)
 
 ---
 
@@ -209,7 +209,7 @@ Requires 6 pairwise comparisons; each can carry a one-line rationale, which is c
 | 研究条件 | 0.0351 |
 | 表达效果 | 0.0226 |
 
-$\lambda_{\max}=3.0012$，$CR=0.0011$（通过一致性检验／passes consistency check）
+λmax = 3.0012，CR = 0.0011（通过一致性检验／passes consistency check）
 
 ---
 
@@ -217,10 +217,29 @@ $\lambda_{\max}=3.0012$，$CR=0.0011$（通过一致性检验／passes consisten
 
 ### 和积法步骤 · Sum-Product Method
 
-1. **列归一化**：$b_{ij}=\dfrac{a_{ij}}{\sum_{k=1}^{n}a_{kj}}$ — Column normalization
-2. **按行求和**：$\bar{w}_i=\sum_{j=1}^{n}b_{ij}$ — Row summation
-3. **归一化得权重**：$w_i=\dfrac{\bar{w}_i}{\sum_{k=1}^{n}\bar{w}_k}$ — Normalize to weights
-4. **求最大特征根**：$\lambda_{\max}=\dfrac{1}{n}\sum_{i=1}^{n}\dfrac{(AW)_i}{w_i}$ — Maximum eigenvalue
+1. **列归一化** / Column normalization
+
+$$
+b_{ij}=\frac{a_{ij}}{\sum_{k=1}^{n}a_{kj}}
+$$
+
+2. **按行求和** / Row summation
+
+$$
+\bar{w}_i=\sum_{j=1}^{n}b_{ij}
+$$
+
+3. **归一化得权重** / Normalize to weights
+
+$$
+w_i=\frac{\bar{w}_i}{\sum_{k=1}^{n}\bar{w}_k}
+$$
+
+4. **求最大特征根** / Maximum eigenvalue
+
+$$
+\lambda_{\max}=\frac{1}{n}\sum_{i=1}^{n}\frac{(AW)_i}{w_i}
+$$
 
 ### 一致性检验 · Consistency Check
 
@@ -228,19 +247,19 @@ $$
 CI=\frac{\lambda_{\max}-n}{n-1},\qquad CR=\frac{CI}{RI}
 $$
 
-当 $CR<0.1$ 时认为判断矩阵一致性可接受。$RI$ 为随机一致性指标（$n=3$ 时 0.58，$n=4$ 时 0.90，$n=5$ 时 1.12）。
+当 CR < 0.1 时认为判断矩阵一致性可接受。RI 为随机一致性指标（n=3 时 0.58，n=4 时 0.90，n=5 时 1.12）。
 
-$CR<0.1$ indicates acceptable consistency. $RI$ is the random consistency index (0.58 for $n=3$, 0.90 for $n=4$, 1.12 for $n=5$).
+CR < 0.1 indicates acceptable consistency. RI is the random consistency index (0.58 for n=3, 0.90 for n=4, 1.12 for n=5).
 
 ### 层次总排序 · Global Priority
 
 $$
-\text{方案得分} = \sum_{k} w_k \times s_{ik}
+S_i=\sum_{k=1}^{m} w_k \times s_{ik}
 $$
 
-其中 $w_k$ 为第 $k$ 个约束的权重，$s_{ik}$ 为方案 $i$ 在第 $k$ 个约束下的权重。
+其中 w<sub>k</sub> 为第 k 个约束的权重，s<sub>ik</sub> 为方案 i 在第 k 个约束下的权重。
 
-Where $w_k$ is the weight of criterion $k$ and $s_{ik}$ is the weight of alternative $i$ under criterion $k$.
+Where w<sub>k</sub> is the weight of criterion k and s<sub>ik</sub> is the weight of alternative i under criterion k.
 
 ---
 
