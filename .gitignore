@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.venv/
+venv/
+env/
+
+# 运行脚本自动生成的报告（保留 example/ 下的样例）
+/AHP*.txt
+/src/AHP*.txt
+
+# Office 临时文件
+~$*.doc
+~$*.docx
+~$*.xls
+~$*.xlsx
+~$*.ppt
+~WRL*.tmp
+*.tmp
+
+# 原始实验指导书（含个人信息，不公开）
+（24级）*.doc
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
