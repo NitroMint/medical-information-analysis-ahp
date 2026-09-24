@@ -18,7 +18,6 @@ Three progressive AHP exercises implemented in Python + NumPy: eigenvector compu
 - [方法说明 · Methodology](#方法说明--methodology)
 - [输出示例 · Sample Output](#输出示例--sample-output)
 - [说明 · Notes](#说明--notes)
-
 ---
 
 ## 项目简介 · Overview
@@ -46,7 +45,6 @@ AHP decomposes a complex decision problem into a hierarchy, derives weights from
 ├── example/                                   # 示例输出报告 / Sample reports
 │   ├── AHP毕业去向报告_张三_20260924_112149.txt
 │   └── AHP项目遴选评价体系_张三_20260924_113503.txt
-└── docs/                                      # 课程资料 / Course materials
 ```
 
 | 文件 / File | 说明 / Description |
